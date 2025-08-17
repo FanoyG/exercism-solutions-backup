@@ -19,13 +19,6 @@ jobs:
         uses: pascalgn/automerge-action@v0.16.3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Report result
-        run: |
-          if [[ "${{ steps.automerge.outputs.mergeResult }}" == "merged" ]]; then
-            echo "✅ Success: Exercism PR was merged."
-          elif [[ "${{ steps.automerge.outputs.mergeResult }}" == "already-merged" ]]; then
-            echo "ℹ️ Info: Exercism PR was already merged."
-          else
-            echo "❌ Error: Exercism PR could not be merged. Reason: ${{ steps.automerge.outputs.mergeResult }}"
-          fi
+        with:
+          mergeMethod: squash   # or "merge" or "rebase"
+          commitMessage: pull-request-title
